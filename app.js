@@ -1,3 +1,4 @@
+import { program } from "commander";
 import {
   addTeacher,
   getAllTeachers,
@@ -28,4 +29,12 @@ const invokeAction = async ({ action, id, name, surname }) => {
   }
 };
 
-invokeAction({ action: "deleteById", id: "LRqVcCY-MWOxrp5OVmRWC" });
+program
+  .option("-a, --action <type>")
+  .option("-i, --id <id>")
+  .option("-n, --name <name>")
+  .option("-s, --surname <surname>");
+
+program.parse();
+
+invokeAction(program.opts());
