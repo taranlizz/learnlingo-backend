@@ -1,4 +1,4 @@
-[
+export default [
   {
     "id": "7mya7363Y5l6kE6G0Jqvg",
     "name": "John",
