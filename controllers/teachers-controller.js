@@ -1,4 +1,5 @@
 import teacherService from '../models/teachers/index.js';
+import HttpError from '../helpers/HttpError.js';
 
 const getAll = async (req, res) => {
   try {
@@ -14,9 +15,7 @@ const getById = async (req, res) => {
     const { teacherId } = req.params;
     const result = await teacherService.getTeacherById(teacherId);
     if (!result) {
-      const error = new Error(`Movie with ${id} is not found`);
-      error.status = 404;
-      throw error;
+      throw HttpError(404, `Movie with ${teacherId} is not found`);
     }
     res.json(result);
   } catch (error) {
