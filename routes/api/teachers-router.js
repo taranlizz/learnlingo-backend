@@ -6,9 +6,7 @@ const teachersRouter = express.Router();
 
 teachersRouter.get('/', teachersController.getAll);
 
-teachersRouter.get('/:teacherId', async (req, res) => {
-  res.json({ message: 'template message' });
-});
+teachersRouter.get('/:teacherId', teachersController.getById);
 
 teachersRouter.post('/', async (req, res) => {
   res.json({ message: 'template message' });
