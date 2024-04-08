@@ -1,19 +1,18 @@
-import fs from "fs/promises";
-import path from "path";
-import { nanoid } from "nanoid";
+import fs from 'fs/promises';
+import path from 'path';
+import { nanoid } from 'nanoid';
 
-const teachersPath = path.resolve("teachers", "teachers.json");
-const updateTeachers = (teachers) =>
-  fs.writeFile(teachersPath, JSON.stringify(teachers, null, 2));
+const teachersPath = path.resolve('teachers', 'teachers.json');
+const updateTeachers = teachers => fs.writeFile(teachersPath, JSON.stringify(teachers, null, 2));
 
 const getAllTeachers = async () => {
-  const result = await fs.readFile(teachersPath, "utf-8");
+  const result = await fs.readFile(teachersPath, 'utf-8');
   return JSON.parse(result);
 };
 
-const getTeacherById = async (id) => {
+const getTeacherById = async id => {
   const teachers = await getAllTeachers();
-  const result = teachers.find((teacher) => teacher.id === id);
+  const result = teachers.find(teacher => teacher.id === id);
   return result || null;
 };
 
@@ -34,7 +33,7 @@ const addTeacher = async (name, surname) => {
 
 const updateTeacherById = async (id, data) => {
   const teachers = await getAllTeachers();
-  const index = teachers.findIndex((teacher) => teacher.id === id);
+  const index = teachers.findIndex(teacher => teacher.id === id);
   if (index === -1) {
     return null;
   }
@@ -43,9 +42,9 @@ const updateTeacherById = async (id, data) => {
   return teachers[index];
 };
 
-const deleteById = async (id) => {
+const deleteById = async id => {
   const teachers = await getAllTeachers();
-  const index = teachers.findIndex((teacher) => teacher.id === id);
+  const index = teachers.findIndex(teacher => teacher.id === id);
   if (index === -1) {
     return null;
   }
