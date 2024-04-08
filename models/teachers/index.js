@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { nanoid } from 'nanoid';
 
-const teachersPath = path.resolve('teachers', 'teachers.json');
+const teachersPath = path.resolve('models', 'teachers', 'teachers.json');
 const updateTeachers = teachers => fs.writeFile(teachersPath, JSON.stringify(teachers, null, 2));
 
 const getAllTeachers = async () => {
