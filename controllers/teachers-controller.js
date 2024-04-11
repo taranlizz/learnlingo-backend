@@ -1,10 +1,11 @@
 import teacherService from '../models/teachers/index.js';
 import HttpError from '../helpers/HttpError.js';
+import teacherSchemas from '../schemas/teacher-schemas.js';
 
 const getAll = async (req, res, next) => {
   try {
     const result = await teacherService.getAllTeachers();
-    result.json(result);
+    res.json(result);
   } catch (error) {
     next(error);
   }
@@ -23,7 +24,21 @@ const getById = async (req, res, next) => {
   }
 };
 
+const add = async (req, res, next) => {
+  try {
+    const { error } = teacherSchemas.addSchema.validate(req.body);
+    if (error) {
+      throw HttpError(400, error.message);
+    }
+    const result = await teacherService.addTeacher(req.body);
+    res.status(201).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getAll,
   getById,
+  add,
 };

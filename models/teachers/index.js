@@ -16,7 +16,7 @@ const getTeacherById = async id => {
   return result || null;
 };
 
-const addTeacher = async (name, surname) => {
+const addTeacher = async ({ name, surname }) => {
   const teachers = await getAllTeachers();
   const newTeacher = {
     id: nanoid(),
