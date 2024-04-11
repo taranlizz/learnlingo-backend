@@ -42,7 +42,7 @@ const updateTeacherById = async (id, data) => {
   return teachers[index];
 };
 
-const deleteById = async id => {
+const deleteTeacherById = async id => {
   const teachers = await getAllTeachers();
   const index = teachers.findIndex(teacher => teacher.id === id);
   if (index === -1) {
@@ -58,5 +58,5 @@ export default {
   getTeacherById,
   addTeacher,
   updateTeacherById,
-  deleteById,
+  deleteTeacherById,
 };

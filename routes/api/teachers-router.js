@@ -14,8 +14,6 @@ teachersRouter.post('/', isEmptyBody, teachersController.add);
 
 teachersRouter.put('/:teacherId', isEmptyBody, teachersController.updateById);
 
-teachersRouter.delete('/:teacherId', async (req, res) => {
-  res.json({ message: 'template message' });
-});
+teachersRouter.delete('/:teacherId', teachersController.deleteById);
 
 export default teachersRouter;

@@ -3,7 +3,10 @@
     "id": "1",
     "name": "John",
     "surname": "Doe",
-    "languages": ["English", "Spanish"],
+    "languages": [
+      "English",
+      "Spanish"
+    ],
     "levels": [
       "A1 Beginner",
       "A2 Elementary",
@@ -39,8 +42,16 @@
     "id": "2",
     "name": "Jane",
     "surname": "Smith",
-    "languages": ["French", "German"],
-    "levels": ["A1 Beginner", "A2 Elementary", "B1 Intermediate", "B2 Upper-Intermediate"],
+    "languages": [
+      "French",
+      "German"
+    ],
+    "levels": [
+      "A1 Beginner",
+      "A2 Elementary",
+      "B1 Intermediate",
+      "B2 Upper-Intermediate"
+    ],
     "rating": 4.8,
     "reviews": [
       {
@@ -68,8 +79,14 @@
     "id": "3",
     "name": "David",
     "surname": "Johnson",
-    "languages": ["Mandarin Chinese"],
-    "levels": ["A1 Beginner", "A2 Elementary", "B1 Intermediate"],
+    "languages": [
+      "Mandarin Chinese"
+    ],
+    "levels": [
+      "A1 Beginner",
+      "A2 Elementary",
+      "B1 Intermediate"
+    ],
     "rating": 4.2,
     "reviews": [
       {
@@ -97,8 +114,14 @@
     "id": "4",
     "name": "Sarah",
     "surname": "Johnson",
-    "languages": ["English"],
-    "levels": ["A1 Beginner", "A2 Elementary", "B1 Intermediate"],
+    "languages": [
+      "English"
+    ],
+    "levels": [
+      "A1 Beginner",
+      "A2 Elementary",
+      "B1 Intermediate"
+    ],
     "rating": 4.6,
     "reviews": [
       {
@@ -126,8 +149,15 @@
     "id": "5",
     "name": "Michael",
     "surname": "Brown",
-    "languages": ["Spanish"],
-    "levels": ["A1 Beginner", "A2 Elementary", "B1 Intermediate", "B2 Upper-Intermediate"],
+    "languages": [
+      "Spanish"
+    ],
+    "levels": [
+      "A1 Beginner",
+      "A2 Elementary",
+      "B1 Intermediate",
+      "B2 Upper-Intermediate"
+    ],
     "rating": 4.4,
     "reviews": [
       {
@@ -155,8 +185,15 @@
     "id": "6",
     "name": "Emma",
     "surname": "Wilson",
-    "languages": ["French", "Italian"],
-    "levels": ["A1 Beginner", "A2 Elementary", "B1 Intermediate"],
+    "languages": [
+      "French",
+      "Italian"
+    ],
+    "levels": [
+      "A1 Beginner",
+      "A2 Elementary",
+      "B1 Intermediate"
+    ],
     "rating": 4.9,
     "reviews": [
       {
@@ -184,8 +221,15 @@
     "id": "7",
     "name": "Alexander",
     "surname": "Lee",
-    "languages": ["English", "Korean"],
-    "levels": ["A1 Beginner", "A2 Elementary", "B1 Intermediate"],
+    "languages": [
+      "English",
+      "Korean"
+    ],
+    "levels": [
+      "A1 Beginner",
+      "A2 Elementary",
+      "B1 Intermediate"
+    ],
     "rating": 4.7,
     "reviews": [
       {
@@ -213,8 +257,16 @@
     "id": "8",
     "name": "Sophia",
     "surname": "Garcia",
-    "languages": ["Spanish", "French"],
-    "levels": ["A1 Beginner", "A2 Elementary", "B1 Intermediate", "B2 Upper-Intermediate"],
+    "languages": [
+      "Spanish",
+      "French"
+    ],
+    "levels": [
+      "A1 Beginner",
+      "A2 Elementary",
+      "B1 Intermediate",
+      "B2 Upper-Intermediate"
+    ],
     "rating": 4.9,
     "reviews": [
       {
@@ -242,8 +294,14 @@
     "id": "9",
     "name": "Max",
     "surname": "Andersen",
-    "languages": ["German"],
-    "levels": ["A1 Beginner", "A2 Elementary", "B1 Intermediate"],
+    "languages": [
+      "German"
+    ],
+    "levels": [
+      "A1 Beginner",
+      "A2 Elementary",
+      "B1 Intermediate"
+    ],
     "rating": 4.6,
     "reviews": [
       {
@@ -266,34 +324,5 @@
       "Flexible lesson timings available."
     ],
     "experience": "Max has been teaching German for 6 years and has a deep understanding of the language. He has helped numerous students gain proficiency in German through his structured and comprehensive lessons. Max's teaching approach is tailored to each student's needs, ensuring a personalized and effective learning experience."
-  },
-  {
-    "id": "10",
-    "name": "Isabella",
-    "surname": "Lopez",
-    "languages": ["English", "Spanish"],
-    "levels": ["A1 Beginner", "A2 Elementary", "B1 Intermediate"],
-    "rating": 4.8,
-    "reviews": [
-      {
-        "reviewer_name": "Liam",
-        "reviewer_rating": 5,
-        "comment": "Isabella is a fantastic teacher. Her lessons are engaging and effective."
-      },
-      {
-        "reviewer_name": "Mia",
-        "reviewer_rating": 4,
-        "comment": "I have made significant progress with Isabella's lessons. Highly recommended."
-      }
-    ],
-    "price_per_hour": 25,
-    "lessons_done": 1125,
-    "avatar_url": "https://ftp.goit.study/img/avatars/10.jpg",
-    "lesson_info": "Lessons focus on building language skills through conversation practice and cultural insights.",
-    "conditions": [
-      "Teaches adults and teenagers (16 years and above).",
-      "Flexible lesson packages available."
-    ],
-    "experience": "Isabella has been teaching English and Spanish for 5 years. She has a passion for language teaching and strives to create a supportive and interactive learning environment for her students. Isabella's lessons are tailored to each student's needs, helping them develop their language skills and gain confidence in their language abilities."
   }
 ]

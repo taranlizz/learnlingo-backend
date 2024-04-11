@@ -54,9 +54,23 @@ const updateById = async (req, res, next) => {
   }
 };
 
+const deleteById = async (req, res, next) => {
+  try {
+    const { teacherId } = req.params;
+    const result = await teacherService.deleteTeacherById(teacherId);
+    if (!result) {
+      throw HttpError(404, `Teacher with ${teacherId} is not found`);
+    }
+    res.status(204).send();
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getAll,
   getById,
   add,
   updateById,
+  deleteById,
 };
