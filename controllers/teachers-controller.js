@@ -16,7 +16,7 @@ const getById = async (req, res, next) => {
     const { teacherId } = req.params;
     const result = await teacherService.getTeacherById(teacherId);
     if (!result) {
-      throw HttpError(404, `Movie with ${teacherId} is not found`);
+      throw HttpError(404, `Teacher with ${teacherId} is not found`);
     }
     res.json(result);
   } catch (error) {
@@ -37,8 +37,26 @@ const add = async (req, res, next) => {
   }
 };
 
+const updateById = async (req, res, next) => {
+  try {
+    const { error } = teacherSchemas.updateSchema.validate(req.body);
+    if (error) {
+      throw HttpError(400, error.message);
+    }
+    const { teacherId } = req.params;
+    const result = await teacherService.updateTeacherById(teacherId, req.body);
+    if (!result) {
+      throw HttpError(404, `Teacher with ${teacherId} is not found`);
+    }
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getAll,
   getById,
   add,
+  updateById,
 };

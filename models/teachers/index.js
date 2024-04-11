@@ -37,7 +37,7 @@ const updateTeacherById = async (id, data) => {
   if (index === -1) {
     return null;
   }
-  teachers[index] = { id, ...data };
+  teachers[index] = { ...teachers[index], ...data };
   await updateTeachers(teachers);
   return teachers[index];
 };

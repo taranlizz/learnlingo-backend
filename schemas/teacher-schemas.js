@@ -5,6 +5,12 @@ const addSchema = Joi.object({
   surname: Joi.string().required(),
 });
 
+const updateSchema = Joi.object({
+  name: Joi.string(),
+  surname: Joi.string(),
+});
+
 export default {
   addSchema,
+  updateSchema,
 };

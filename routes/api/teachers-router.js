@@ -12,11 +12,9 @@ teachersRouter.get('/:teacherId', teachersController.getById);
 
 teachersRouter.post('/', isEmptyBody, teachersController.add);
 
-teachersRouter.delete('/:teacherId', async (req, res) => {
-  res.json({ message: 'template message' });
-});
+teachersRouter.put('/:teacherId', isEmptyBody, teachersController.updateById);
 
-teachersRouter.put('/:teacherId', async (req, res) => {
+teachersRouter.delete('/:teacherId', async (req, res) => {
   res.json({ message: 'template message' });
 });
 
