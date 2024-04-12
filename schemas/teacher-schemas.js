@@ -1,16 +1,16 @@
 import Joi from 'joi';
 
-const addSchema = Joi.object({
+const add = Joi.object({
   name: Joi.string().required(),
   surname: Joi.string().required(),
 });
 
-const updateSchema = Joi.object({
+const update = Joi.object({
   name: Joi.string(),
   surname: Joi.string(),
 });
 
 export default {
-  addSchema,
-  updateSchema,
+  add,
+  update,
 };

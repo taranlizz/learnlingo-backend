@@ -1,6 +1,5 @@
 import teacherService from '../models/teachers/index.js';
 import HttpError from '../helpers/HttpError.js';
-import teacherSchemas from '../schemas/teacher-schemas.js';
 import { ctrlWrapper } from '../decorators/index.js';
 
 const getAll = async (req, res) => {
@@ -18,19 +17,11 @@ const getById = async (req, res) => {
 };
 
 const add = async (req, res) => {
-  const { error } = teacherSchemas.addSchema.validate(req.body);
-  if (error) {
-    throw HttpError(400, error.message);
-  }
   const result = await teacherService.addTeacher(req.body);
   res.status(201).json(result);
 };
 
 const updateById = async (req, res) => {
-  const { error } = teacherSchemas.updateSchema.validate(req.body);
-  if (error) {
-    throw HttpError(400, error.message);
-  }
   const { teacherId } = req.params;
   const result = await teacherService.updateTeacherById(teacherId, req.body);
   if (!result) {
