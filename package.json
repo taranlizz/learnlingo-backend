@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "start": "cross-env NODE_ENV=short node ./server.js",
-    "start:dev": "cross-env NODE_ENV=dev nodemon ./server.js"
+    "start:dev": "cross-env NODE_ENV=dev nodemon ./server.js",
+    "lint": "eslint **/*.js",
+    "lint:fix": "eslint --fix **/*.js"
   },
   "author": "your name <your-email@example.com> (https://my-domain/user)",
   "license": "ISC",
