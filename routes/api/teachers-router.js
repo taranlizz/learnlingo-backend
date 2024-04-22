@@ -11,17 +11,17 @@ const teachersRouter = express.Router();
 
 teachersRouter.get('/', teachersController.getAll);
 
-teachersRouter.get('/:teacherId', teachersController.getById);
+// teachersRouter.get('/:teacherId', teachersController.getById);
 
-teachersRouter.post('/', isEmptyBody, validateBody(teacherSchemas.add), teachersController.add);
+teachersRouter.post('/', isEmptyBody, teachersController.add);
 
-teachersRouter.put(
-  '/:teacherId',
-  isEmptyBody,
-  validateBody(teacherSchemas.add),
-  teachersController.updateById
-);
+// teachersRouter.put(
+//   '/:teacherId',
+//   isEmptyBody,
+//   validateBody(teacherSchemas.add),
+//   teachersController.updateById
+// );
 
-teachersRouter.delete('/:teacherId', teachersController.deleteById);
+// teachersRouter.delete('/:teacherId', teachersController.deleteById);
 
 export default teachersRouter;
