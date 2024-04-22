@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import logger from 'morgan';
+import 'dotenv/config';
+
 import teachersRouter from './routes/api/teachers-router.js';
 
 const app = express();
