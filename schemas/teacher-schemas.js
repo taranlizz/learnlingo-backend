@@ -4,7 +4,7 @@ import ErrorMessage from './ErrorMessage.js';
 
 import { levelsList } from '../models/Teacher.js';
 
-const teacherValidationSchema = Joi.object({
+const addAndUpdate = Joi.object({
   name: Joi.string().min(2).required().messages(ErrorMessage('name')),
   surname: Joi.string().required().messages(ErrorMessage('surname')),
   languages: Joi.array()
@@ -29,4 +29,6 @@ const teacherValidationSchema = Joi.object({
   experience: Joi.string().required().messages(ErrorMessage('experience')),
 });
 
-export default teacherValidationSchema;
+export default {
+  addAndUpdate,
+};
