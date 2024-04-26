@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { handleSaveError } from './hooks.js';
+import { handleSaveError, preUpdate } from './hooks.js';
 
 export const levelsList = [
   'A1 Beginner',
@@ -62,6 +62,9 @@ const teacherSchema = new Schema(
 );
 
 teacherSchema.post('save', handleSaveError);
+
+teacherSchema.pre('findOneAndUpdate', preUpdate);
+teacherSchema.post('findOneAndUpdate', handleSaveError);
 
 const Teacher = model('teacher', teacherSchema);
 
