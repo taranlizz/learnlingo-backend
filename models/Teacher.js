@@ -5,6 +5,7 @@ const teacherSchema = new Schema(
   {
     name: {
       type: String,
+      minLength: 2,
       required: true,
     },
     surname: {
@@ -29,19 +30,23 @@ const teacherSchema = new Schema(
     rating: {
       type: Number,
       default: 0,
+      min: 0,
+      max: 5,
     },
     reviews: {
       type: [{ reviewer_name: String, reviewer_rating: Number, comment: String }],
     },
-    price_per_hour: {
+    pricePerHour: {
       type: Number,
       required: true,
+      min: 0,
     },
-    lessons_done: {
+    lessonsDone: {
       type: Number,
       required: true,
+      min: 0,
     },
-    lesson_info: {
+    lessonInfo: {
       type: String,
       required: true,
     },
