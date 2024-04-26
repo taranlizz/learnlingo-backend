@@ -1,6 +1,14 @@
 import { Schema, model } from 'mongoose';
 import { handleSaveError } from './hooks.js';
 
+export const levelsList = [
+  'A1 Beginner',
+  'A2 Elementary',
+  'B1 Intermediate',
+  'B2 Upper-Intermediate',
+  'C1 Advanced',
+];
+
 const teacherSchema = new Schema(
   {
     name: {
@@ -18,13 +26,7 @@ const teacherSchema = new Schema(
     },
     levels: {
       type: [String],
-      enum: [
-        'A1 Beginner',
-        'A2 Elementary',
-        'B1 Intermediate',
-        'B2 Upper-Intermediate',
-        'C1 Advanced',
-      ],
+      enum: levelsList,
       required: true,
     },
     rating: {
