@@ -5,7 +5,7 @@ import teachersController from '../../controllers/teachers-controller.js';
 import { isEmptyBody, isValidId } from '../../middlewars/index.js';
 import { validateBody } from '../../decorators/index.js';
 
-import teacherValidationSchema from '../../schemas/teacher-schemas.js';
+import teacherSchemas from '../../schemas/teacher-schemas.js';
 
 const teachersRouter = express.Router();
 
@@ -16,17 +16,18 @@ teachersRouter.get('/:teacherId', isValidId, teachersController.getById);
 teachersRouter.post(
   '/',
   isEmptyBody,
-  validateBody(teacherValidationSchema),
+  validateBody(teacherSchemas.addAndUpdate),
   teachersController.add
 );
 
-// teachersRouter.put(
-//   '/:teacherId',
-//   isEmptyBody,
-//   validateBody(teacherSchemas.add),
-//   teachersController.updateById
-// );
+teachersRouter.put(
+  '/:teacherId',
+  isValidId,
+  isEmptyBody,
+  validateBody(teacherSchemas.addAndUpdate),
+  teachersController.updateById
+);
 
-// teachersRouter.delete('/:teacherId', teachersController.deleteById);
+teachersRouter.delete('/:teacherId', isValidId, teachersController.deleteById);
 
 export default teachersRouter;
