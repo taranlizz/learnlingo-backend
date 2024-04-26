@@ -2,6 +2,8 @@ import Joi from 'joi';
 
 import ErrorMessage from './ErrorMessage.js';
 
+import { levelsList } from '../models/Teacher.js';
+
 const teacherValidationSchema = Joi.object({
   name: Joi.string().min(2).required().messages(ErrorMessage('name')),
   surname: Joi.string().required().messages(ErrorMessage('surname')),
@@ -13,13 +15,7 @@ const teacherValidationSchema = Joi.object({
     .items(
       Joi.string()
         .required()
-        .valid(
-          'A1 Beginner',
-          'A2 Elementary',
-          'B1 Intermediate',
-          'B2 Upper-Intermediate',
-          'C1 Advanced'
-        )
+        .valid(...levelsList)
     )
     .required()
     .messages(ErrorMessage('levels')),
