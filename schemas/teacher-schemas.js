@@ -5,7 +5,7 @@ import ErrorMessage from './ErrorMessage.js';
 import { levelsList } from '../models/Teacher.js';
 
 const addAndUpdate = Joi.object({
-  name: Joi.string().min(2).required().messages(ErrorMessage('name')),
+  name: Joi.string().required().messages(ErrorMessage('name')),
   surname: Joi.string().required().messages(ErrorMessage('surname')),
   languages: Joi.array()
     .items(Joi.string().required())

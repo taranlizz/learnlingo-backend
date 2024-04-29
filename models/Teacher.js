@@ -13,7 +13,6 @@ const teacherSchema = new Schema(
   {
     name: {
       type: String,
-      minLength: 2,
       required: true,
     },
     surname: {

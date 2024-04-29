@@ -1,7 +1,6 @@
 const ErrorMessage = fieldName => {
   return {
     'string.base': `${fieldName} should be a type of 'string'`,
-    'string.min': `${fieldName} should have a minimum length of 2`,
     'array.base': `${fieldName} should be a type of 'array'`,
     'array.includes': `items in ${fieldName} array should be a type of 'string'`,
     'array.includesRequiredUnknowns': `missing required items in ${fieldName} array`,
