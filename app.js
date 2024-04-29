@@ -3,6 +3,7 @@ import cors from 'cors';
 import logger from 'morgan';
 import 'dotenv/config';
 
+import authRouter from './routes/api/auth-router.js';
 import teachersRouter from './routes/api/teachers-router.js';
 
 const app = express();
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(logger(formatLogger));
 app.use(express.json());
 
+app.use('/api/auth', authRouter);
 app.use('/api/teachers', teachersRouter);
 
 app.use((req, res) => {
