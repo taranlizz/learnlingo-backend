@@ -2,7 +2,6 @@ import { Schema, model } from 'mongoose';
 import { handleSaveError, preUpdate } from './hooks.js';
 
 export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-export const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
 const userSchema = new Schema(
   {
@@ -22,8 +21,6 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      minLength: 8,
-      match: passwordRegex,
       required: true,
     },
   },
