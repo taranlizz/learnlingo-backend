@@ -24,6 +24,7 @@ const signUp = async (req, res) => {
     email: newUser.email,
     name: newUser.name,
     surname: newUser.surname,
+    type: newUser.type,
   });
 };
 
@@ -39,13 +40,30 @@ const signIn = async (req, res) => {
     throw HttpError(401, `Incorrect password`);
   }
 
-  const payload = { id: user.id };
+  const payload = { id: user._id, type: user.type };
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '23h' });
 
+  await User.findByIdAndUpdate(user._id, { token });
+
   res.json({ token });
+};
+
+const getCurrent = async (req, res) => {
+  const { username, email } = req.user;
+
+  req.json({ username, email });
+};
+
+const signOut = async (req, res) => {
+  const { _id } = req.user;
+  await User.findByIdAndDelete(_id, { token: '' });
+
+  res.json({ message: 'Sign out succeed' });
 };
 
 export default {
   signUp: ctrlWrapper(signUp),
   signIn: ctrlWrapper(signIn),
+  getCurrent: ctrlWrapper(getCurrent),
+  signOut: ctrlWrapper(signOut),
 };
