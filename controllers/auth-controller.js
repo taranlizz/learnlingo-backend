@@ -40,7 +40,7 @@ const signIn = async (req, res) => {
     throw HttpError(401, `Incorrect password`);
   }
 
-  const payload = { id: user._id, type: user.type };
+  const payload = { id: user._id };
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '23h' });
 
   await User.findByIdAndUpdate(user._id, { token });

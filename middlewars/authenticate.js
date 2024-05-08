@@ -20,12 +20,12 @@ const authenticate = async (req, res, next) => {
   }
 
   try {
-    const { id, type } = jwt.verify(token, JWT_SECRET);
+    const { id } = jwt.verify(token, JWT_SECRET);
     const user = await User.findById(id);
     if (!user || !user.token || !user.token !== token) {
       throw HttpError(401, 'Authorization required');
     }
-    if (type !== 'teacher') {
+    if (user.type !== 'teacher') {
       throw HttpError(403, 'Invalid user type');
     }
     req.user = user;
