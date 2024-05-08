@@ -2,7 +2,7 @@ import Joi from 'joi';
 
 import ErrorMessage from './ErrorMessage.js';
 
-import { emailRegex } from '../models/User.js';
+import { emailRegex, typesList } from '../models/User.js';
 
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
@@ -15,6 +15,10 @@ const signUp = Joi.object({
     .pattern(passwordRegex)
     .required()
     .messages(ErrorMessage('password', 8)),
+  type: Joi.string()
+    .required()
+    .valid(...typesList)
+    .messages(ErrorMessage('type')),
 });
 
 const signIn = Joi.object({
