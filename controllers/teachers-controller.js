@@ -4,13 +4,22 @@ import { HttpError } from '../helpers/index.js';
 import { ctrlWrapper } from '../decorators/index.js';
 
 const getAll = async (req, res) => {
-  const result = await Teacher.find({}, '-createdAt -updatedAt');
-  res.json(result);
+  const { page = 1, limit = 3 } = req.query;
+
+  const skip = (page - 1) * limit;
+  const total = await Teacher.countDocuments({});
+
+  const result = await Teacher.find({}, '-createdAt -updatedAt', { skip, limit }).populate(
+    'userId',
+    'name surname email'
+  );
+  res.json({ result, total });
 };
 
 const getById = async (req, res) => {
   const { teacherId } = req.params;
-  const result = await Teacher.findById(teacherId);
+  const { _id: userId } = req.user;
+  const result = await Teacher.findOne({ _id: teacherId, userId });
   if (!result) {
     throw HttpError(404, `Teacher with ${teacherId} is not found`);
   }
@@ -18,13 +27,15 @@ const getById = async (req, res) => {
 };
 
 const add = async (req, res) => {
-  const result = await Teacher.create(req.body);
+  const { _id: userId } = req.user;
+  const result = await Teacher.create({ ...req.body, userId });
   res.status(201).json(result);
 };
 
 const updateById = async (req, res) => {
   const { teacherId } = req.params;
-  const result = await Teacher.findByIdAndUpdate(teacherId, req.body);
+  const { _id: userId } = req.user;
+  const result = await Teacher.findOneAndUpdate({ _id: teacherId, userId }, req.body);
   if (!result) {
     throw HttpError(404, `Teacher with ${teacherId} is not found`);
   }
@@ -33,7 +44,8 @@ const updateById = async (req, res) => {
 
 const deleteById = async (req, res) => {
   const { teacherId } = req.params;
-  const result = await Teacher.findByIdAndDelete(teacherId);
+  const { _id: userId } = req.user;
+  const result = await Teacher.findByOneAndDelete({ _id: teacherId, userId });
   if (!result) {
     throw HttpError(404, `Teacher with ${teacherId} is not found`);
   }
