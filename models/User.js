@@ -2,6 +2,7 @@ import { Schema, model } from 'mongoose';
 import { handleSaveError, preUpdate } from './hooks.js';
 
 export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export const typesList = ['teacher', 'student'];
 
 const userSchema = new Schema(
   {
@@ -22,6 +23,14 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
+    },
+    type: {
+      type: String,
+      enum: typesList,
+      required: true,
+    },
+    token: {
+      type: String,
     },
   },
   { versionKey: false, timestamps: true }
