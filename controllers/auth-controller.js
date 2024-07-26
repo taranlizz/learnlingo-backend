@@ -1,13 +1,10 @@
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 
 import User from '../models/User.js';
 
 import { ctrlWrapper } from '../decorators/index.js';
 
-import { HttpError } from '../helpers/index.js';
-
-const { JWT_SECRET } = process.env;
+import { HttpError, signJWT } from '../helpers/index.js';
 
 const signUp = async (req, res) => {
   const { email, password } = req.body;
@@ -20,11 +17,18 @@ const signUp = async (req, res) => {
 
   const newUser = await User.create({ ...req.body, password: hashedPassword });
 
+  const token = signJWT(newUser._id);
+
+  console.log(token);
+
+  await User.findByIdAndUpdate(newUser._id, { token });
+
   res.status(201).json({
     email: newUser.email,
     name: newUser.name,
     surname: newUser.surname,
     type: newUser.type,
+    token,
   });
 };
 
@@ -40,8 +44,7 @@ const signIn = async (req, res) => {
     throw HttpError(401, `Incorrect password`);
   }
 
-  const payload = { id: user._id };
-  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '23h' });
+  const token = signJWT(user._id);
 
   await User.findByIdAndUpdate(user._id, { token });
 
