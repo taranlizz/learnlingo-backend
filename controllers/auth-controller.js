@@ -51,12 +51,12 @@ const signIn = async (req, res) => {
 const getCurrent = async (req, res) => {
   const { username, email } = req.user;
 
-  req.json({ username, email });
+  res.json({ username, email });
 };
 
 const signOut = async (req, res) => {
   const { _id } = req.user;
-  await User.findByIdAndDelete(_id, { token: '' });
+  await User.findByIdAndUpdate(_id, { token: '' });
 
   res.json({ message: 'Sign out succeed' });
 };
