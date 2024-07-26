@@ -15,10 +15,6 @@ const teacherSchema = new Schema(
       type: String,
       required: true,
     },
-    surname: {
-      type: String,
-      required: true,
-    },
     languages: {
       type: [String],
       required: true,

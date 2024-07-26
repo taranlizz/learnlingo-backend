@@ -2,11 +2,15 @@ import Joi from 'joi';
 
 import ErrorMessage from './ErrorMessage.js';
 
+import { checkNameField } from './customValidators.js';
+
 import { levelsList } from '../models/Teacher.js';
 
 const addAndUpdate = Joi.object({
-  name: Joi.string().required().messages(ErrorMessage('name')),
-  surname: Joi.string().required().messages(ErrorMessage('surname')),
+  name: Joi.string()
+    .required()
+    .custom((value, helpers) => checkNameField(value, helpers))
+    .messages(ErrorMessage('name')),
   languages: Joi.array()
     .items(Joi.string().required())
     .required()

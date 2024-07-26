@@ -2,13 +2,17 @@ import Joi from 'joi';
 
 import ErrorMessage from './ErrorMessage.js';
 
+import { checkNameField } from './customValidators.js';
+
 import { emailRegex, typesList } from '../models/User.js';
 
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
 const signUp = Joi.object({
-  name: Joi.string().required().messages(ErrorMessage('name')),
-  surname: Joi.string().required().messages(ErrorMessage('surname')),
+  name: Joi.string()
+    .required()
+    .custom((value, helpers) => checkNameField(value, helpers))
+    .messages(ErrorMessage('name')),
   email: Joi.string().pattern(emailRegex).required().messages(ErrorMessage('email')),
   password: Joi.string()
     .min(8)
