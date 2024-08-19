@@ -1,7 +1,12 @@
+import fs from 'fs/promises';
+import path from 'path';
+
 import Teacher from '../models/Teacher.js';
 
 import { HttpError } from '../helpers/index.js';
 import { ctrlWrapper } from '../decorators/index.js';
+
+const avatarsPath = path.resolve('public', 'avatars');
 
 const getAll = async (req, res) => {
   const { page = 1, limit = 3 } = req.query;
@@ -9,10 +14,8 @@ const getAll = async (req, res) => {
   const skip = (page - 1) * limit;
   const total = await Teacher.countDocuments({});
 
-  const result = await Teacher.find({}, '-createdAt -updatedAt', { skip, limit }).populate(
-    'userId',
-    'name surname email'
-  );
+  const result = await Teacher.find({}, '-createdAt -updatedAt -userId', { skip, limit });
+
   res.json({ result, total });
 };
 
@@ -28,7 +31,14 @@ const getById = async (req, res) => {
 
 const add = async (req, res) => {
   const { _id: userId } = req.user;
-  const result = await Teacher.create({ ...req.body, userId });
+
+  const { path: oldPath, filename } = req.file;
+  const newPath = path.join(avatarsPath, filename);
+  await fs.rename(oldPath, newPath);
+
+  const avatar = path.join('public', 'avatars');
+  const result = await Teacher.create({ ...req.body, avatar, userId });
+
   res.status(201).json(result);
 };
 

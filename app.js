@@ -12,6 +12,7 @@ const formatLogger = app.get('env') === 'development' ? 'dev' : 'short';
 app.use(cors());
 app.use(logger(formatLogger));
 app.use(express.json());
+app.use(express.static('public'));
 
 app.use('/api/auth', authRouter);
 app.use('/api/teachers', teachersRouter);
