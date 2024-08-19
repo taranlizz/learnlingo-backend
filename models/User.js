@@ -6,10 +6,6 @@ export const typesList = ['teacher', 'student'];
 
 const userSchema = new Schema(
   {
-    name: {
-      type: String,
-      required: true,
-    },
     email: {
       type: String,
       match: emailRegex,
