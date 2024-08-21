@@ -52,10 +52,6 @@ const teacherSchema = new Schema(
       type: String,
       required: true,
     },
-    avatar: {
-      type: String,
-      required: true,
-    },
     userId: {
       type: Schema.Types.ObjectId,
       ref: 'user',

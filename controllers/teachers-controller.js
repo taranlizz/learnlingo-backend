@@ -1,12 +1,7 @@
-import fs from 'fs/promises';
-import path from 'path';
-
 import Teacher from '../models/Teacher.js';
 
 import { HttpError } from '../helpers/index.js';
 import { ctrlWrapper } from '../decorators/index.js';
-
-const avatarsPath = path.resolve('public', 'avatars');
 
 const getAll = async (req, res) => {
   const { page = 1, limit = 3 } = req.query;
@@ -32,12 +27,7 @@ const getById = async (req, res) => {
 const add = async (req, res) => {
   const { _id: userId } = req.user;
 
-  const { path: oldPath, filename } = req.file;
-  const newPath = path.join(avatarsPath, filename);
-  await fs.rename(oldPath, newPath);
-
-  const avatar = path.join('public', 'avatars');
-  const result = await Teacher.create({ ...req.body, avatar, userId });
+  const result = await Teacher.create({ ...req.body, userId });
 
   res.status(201).json(result);
 };

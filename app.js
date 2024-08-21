@@ -5,6 +5,7 @@ import 'dotenv/config';
 
 import authRouter from './routes/api/auth-router.js';
 import teachersRouter from './routes/api/teachers-router.js';
+import usersRouter from './routes/api/users-router.js';
 
 const app = express();
 const formatLogger = app.get('env') === 'development' ? 'dev' : 'short';
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 app.use('/api/auth', authRouter);
+app.use('/api/users', usersRouter);
 app.use('/api/teachers', teachersRouter);
 
 app.use((req, res) => {
