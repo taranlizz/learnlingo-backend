@@ -8,8 +8,9 @@ const destination = path.resolve('temp');
 const storage = multer.diskStorage({
   destination,
   filename: (req, file, cb) => {
+    const extension = file.originalname.split('.').pop();
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    cb(null, file.fieldname + '-' + uniqueSuffix);
+    cb(null, file.fieldname + '-' + uniqueSuffix + '.' + extension);
   },
 });
 
