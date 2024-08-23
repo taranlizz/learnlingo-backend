@@ -25,8 +25,6 @@ const addAvatar = async (req, res) => {
     { projection: { avatarURL: 1, _id: 0 }, returnDocument: 'after' }
   );
 
-  console.log(result);
-
   if (!result) {
     throw new HttpError(`User with ${userId} is not found`);
   }

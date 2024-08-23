@@ -15,21 +15,20 @@ const signUp = async (req, res) => {
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const newUser = await User.create({ ...req.body, password: hashedPassword });
-
-  const token = signJWT(newUser._id);
-
-  console.log(token);
-
-  await User.findByIdAndUpdate(newUser._id, { token });
-
-  res.status(201).json({
-    email: newUser.email,
-    name: newUser.name,
-    surname: newUser.surname,
-    type: newUser.type,
-    token,
+  const { _id: newUser_id } = await User.create({
+    ...req.body,
+    password: hashedPassword,
   });
+
+  const token = signJWT(newUser_id);
+
+  const result = await User.findByIdAndUpdate(
+    newUser_id,
+    { token },
+    { projection: { password: 0, createdAt: 0, updatedAt: 0 } }
+  );
+
+  res.status(201).json(result);
 };
 
 const signIn = async (req, res) => {
