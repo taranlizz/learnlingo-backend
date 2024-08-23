@@ -1,27 +1,31 @@
-import fs from 'fs/promises';
-import path from 'path';
-
 import User from '../models/User.js';
 
-import { HttpError } from '../helpers/index.js';
+import { HttpError, cloudinary } from '../helpers/index.js';
 import { ctrlWrapper } from '../decorators/index.js';
-
-const avatarsPath = path.resolve('public', 'avatars');
 
 const addAvatar = async (req, res) => {
   const { _id: userId } = req.user;
 
-  const { path: oldPath, filename } = req.file;
-  const newPath = path.join(avatarsPath, filename);
-  await fs.rename(oldPath, newPath);
+  const { public_id } = await cloudinary.uploader.upload(req.file.path, {
+    folder: 'avatars',
+  });
 
-  const avatar = path.join('avatars', filename);
+  const avatarURL = cloudinary.url(public_id, {
+    transformation: [
+      {
+        quality: 'auto',
+        fetch_format: 'auto',
+      },
+    ],
+  });
 
   const result = await User.findByIdAndUpdate(
     userId,
-    { avatar },
-    { projection: { avatar: 1 }, returnDocument: 'after' }
+    { avatarURL },
+    { projection: { avatarURL: 1, _id: 0 }, returnDocument: 'after' }
   );
+
+  console.log(result);
 
   if (!result) {
     throw new HttpError(`User with ${userId} is not found`);

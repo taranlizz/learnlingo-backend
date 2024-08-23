@@ -6,6 +6,6 @@ import usersController from '../../controllers/users-controller.js';
 
 const usersRouter = express.Router();
 
-usersRouter.patch('/avatar', authenticate, upload.single('avatar'), usersController.addAvatar);
+usersRouter.patch('/avatars', upload.single('avatar'), authenticate, usersController.addAvatar);
 
 export default usersRouter;

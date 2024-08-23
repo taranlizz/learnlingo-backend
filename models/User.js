@@ -21,7 +21,7 @@ const userSchema = new Schema(
       enum: typesList,
       required: true,
     },
-    avatar: {
+    avatarURL: {
       type: String,
       required: true,
     },
