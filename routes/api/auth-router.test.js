@@ -80,4 +80,16 @@ describe('test /api/auth/signup route', () => {
     expect(statusCode).toBe(400);
     expect(body.message).toBe('email does not match the required pattern');
   });
+
+  test('test with missing email field', async () => {
+    const signupData = {
+      password: 'lizaTaran1234',
+      type: 'teacher',
+    };
+
+    const { statusCode, body } = await request(app).post('/api/auth/signup').send(signupData);
+
+    expect(statusCode).toBe(400);
+    expect(body.message).toBe('missing required email field');
+  });
 });
