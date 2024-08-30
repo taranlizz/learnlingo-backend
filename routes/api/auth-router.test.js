@@ -67,4 +67,17 @@ describe('test /api/auth/signup route', () => {
     expect(statusCode).toBe(409);
     expect(body.message).toBe('User with this email already exists');
   });
+
+  test('test with invalid email', async () => {
+    const signupData = {
+      email: 'lizataranmail.com',
+      password: 'lizaTaran1234',
+      type: 'teacher',
+    };
+
+    const { statusCode, body } = await request(app).post('/api/auth/signup').send(signupData);
+
+    expect(statusCode).toBe(400);
+    expect(body.message).toBe('email does not match the required pattern');
+  });
 });
