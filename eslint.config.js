@@ -9,4 +9,14 @@ export default [
       'no-unused-vars': 'warn',
     },
   },
+  {
+    overrides: [
+      {
+        files: ['tests/**/*'],
+        env: {
+          jest: true,
+        },
+      },
+    ],
+  },
 ];
