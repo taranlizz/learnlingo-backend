@@ -203,4 +203,39 @@ describe('test /api/auth/signin route', () => {
     expect(statusCode).toBe(400);
     expect(body.message).toBe('missing required email field');
   });
+
+  test('test with missing number of characters for password', async () => {
+    const signinData = {
+      email: 'lizataran@mail.com',
+      password: '1234',
+    };
+
+    const { statusCode, body } = await request(app).post('/api/auth/signin').send(signinData);
+
+    expect(statusCode).toBe(400);
+    expect(body.message).toBe('password should have a minimum length of 8');
+  });
+
+  test('test with missing password field', async () => {
+    const signinData = {
+      email: 'lizataran@mail.com',
+    };
+
+    const { statusCode, body } = await request(app).post('/api/auth/signin').send(signinData);
+
+    expect(statusCode).toBe(400);
+    expect(body.message).toBe('missing required password field');
+  });
+
+  test('test with incorrect password', async () => {
+    const signinData = {
+      email: 'lizataran@mail.com',
+      password: 'LizaTaran1234',
+    };
+
+    const { statusCode, body } = await request(app).post('/api/auth/signin').send(signinData);
+
+    expect(statusCode).toBe(401);
+    expect(body.message).toBe('Incorrect password');
+  });
 });
