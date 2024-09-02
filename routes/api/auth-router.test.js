@@ -35,7 +35,7 @@ describe('test /api/auth/signup route', () => {
 
     const signupData = {
       email: 'lizataran@mail.com',
-      password: 'lizaTaran1234',
+      password: 'lizataran1234',
       type: 'teacher',
     };
 
@@ -59,7 +59,7 @@ describe('test /api/auth/signup route', () => {
   test('test with already existing email', async () => {
     const signupData = {
       email: 'lizataran@mail.com',
-      password: 'lizaTaran1234',
+      password: 'lizataran1234',
       type: 'teacher',
     };
     const { statusCode, body } = await request(app).post('/api/auth/signup').send(signupData);
@@ -71,7 +71,7 @@ describe('test /api/auth/signup route', () => {
   test('test with invalid email', async () => {
     const signupData = {
       email: 'lizataranmail.com',
-      password: 'lizaTaran1234',
+      password: 'lizataran1234',
       type: 'teacher',
     };
 
@@ -83,7 +83,7 @@ describe('test /api/auth/signup route', () => {
 
   test('test with missing email field', async () => {
     const signupData = {
-      password: 'lizaTaran1234',
+      password: 'lizataran1234',
       type: 'teacher',
     };
 
@@ -91,5 +91,30 @@ describe('test /api/auth/signup route', () => {
 
     expect(statusCode).toBe(400);
     expect(body.message).toBe('missing required email field');
+  });
+
+  test('test with missing number of characters for password', async () => {
+    const signupData = {
+      email: 'lizataran@mail.com',
+      password: '1234',
+      type: 'teacher',
+    };
+
+    const { statusCode, body } = await request(app).post('/api/auth/signup').send(signupData);
+
+    expect(statusCode).toBe(400);
+    expect(body.message).toBe('password should have a minimum length of 8');
+  });
+
+  test('test with missing password field', async () => {
+    const signupData = {
+      email: 'lizataran@mail.com',
+      type: 'teacher',
+    };
+
+    const { statusCode, body } = await request(app).post('/api/auth/signup').send(signupData);
+
+    expect(statusCode).toBe(400);
+    expect(body.message).toBe('missing required password field');
   });
 });
