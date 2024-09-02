@@ -143,3 +143,28 @@ describe('test /api/auth/signup route', () => {
     expect(body.message).toBe('missing required type field');
   });
 });
+
+describe('test /api/auth/signin route', () => {
+  let server = null;
+
+  beforeAll(async () => {
+    await mongoose.connect(DB_TEST_HOST);
+    server = app.listen(PORT);
+
+    const signupData = {
+      email: 'lizataran@mail.com',
+      password: 'lizataran1234',
+      type: 'teacher',
+    };
+    await request(app).post('/api/auth/signup').send(signupData);
+  });
+
+  afterAll(async () => {
+    await mongoose.connection.close();
+    server.close();
+  });
+
+  afterEach(async () => {
+    await User.deleteMany();
+  });
+});
