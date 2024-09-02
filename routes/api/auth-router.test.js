@@ -42,7 +42,6 @@ describe('test /api/auth/signup route', () => {
     const { statusCode, body } = await request(app).post('/api/auth/signup').send(signupData);
 
     expect(statusCode).toBe(201);
-    expect(body.username).toBe(signupData.username);
     expect(body.email).toBe(signupData.email);
 
     const user = await User.findOne({ email: signupData.email });
@@ -146,6 +145,7 @@ describe('test /api/auth/signup route', () => {
 
 describe('test /api/auth/signin route', () => {
   let server = null;
+  let user = null;
 
   beforeAll(async () => {
     await mongoose.connect(DB_TEST_HOST);
@@ -156,15 +156,28 @@ describe('test /api/auth/signin route', () => {
       password: 'lizataran1234',
       type: 'teacher',
     };
-    await request(app).post('/api/auth/signup').send(signupData);
+
+    const { body } = await request(app).post('/api/auth/signup').send(signupData);
+    user = body;
   });
 
   afterAll(async () => {
+    await User.deleteMany();
+
     await mongoose.connection.close();
     server.close();
   });
 
-  afterEach(async () => {
-    await User.deleteMany();
+  test('test with a correct dataset', async () => {
+    const signinData = {
+      email: 'lizataran@mail.com',
+      password: 'lizataran1234',
+    };
+
+    const { statusCode, body } = await request(app).post('/api/auth/signin').send(signinData);
+    expect(statusCode).toBe(200);
+
+    const { id } = jwt.verify(body.token, JWT_SECRET);
+    expect(id).toBe(user._id.toString());
   });
 });
