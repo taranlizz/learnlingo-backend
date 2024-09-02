@@ -8,7 +8,7 @@ const ErrorMessage = (fieldName, minStrLength) => {
     'array.includesRequiredUnknowns': `missing required items in ${fieldName} array`,
     'number.base': `${fieldName} should be a type of 'number'`,
     'number.min': `${fieldName} field's value less than the allowed minimum value`,
-    'any.only': `items in ${fieldName} array should match list of valid values`,
+    'any.only': `items in the ${fieldName} field should match list of valid values`,
     'any.required': `missing required ${fieldName} field`,
   };
 };
