@@ -117,4 +117,29 @@ describe('test /api/auth/signup route', () => {
     expect(statusCode).toBe(400);
     expect(body.message).toBe('missing required password field');
   });
+
+  test('test with wrong type field value', async () => {
+    const signupData = {
+      email: 'lizataran@mail.com',
+      password: 'lizataran1234',
+      type: 'user',
+    };
+
+    const { statusCode, body } = await request(app).post('/api/auth/signup').send(signupData);
+
+    expect(statusCode).toBe(400);
+    expect(body.message).toBe('items in the type field should match list of valid values');
+  });
+
+  test('test with missing type field', async () => {
+    const signupData = {
+      email: 'lizataran@mail.com',
+      password: 'lizataran1234',
+    };
+
+    const { statusCode, body } = await request(app).post('/api/auth/signup').send(signupData);
+
+    expect(statusCode).toBe(400);
+    expect(body.message).toBe('missing required type field');
+  });
 });
