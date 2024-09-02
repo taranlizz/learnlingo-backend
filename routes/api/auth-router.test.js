@@ -180,4 +180,27 @@ describe('test /api/auth/signin route', () => {
     const { id } = jwt.verify(body.token, JWT_SECRET);
     expect(id).toBe(user._id.toString());
   });
+
+  test('test with invalid email', async () => {
+    const signinData = {
+      email: 'lizataranmail.com',
+      password: 'lizataran1234',
+    };
+
+    const { statusCode, body } = await request(app).post('/api/auth/signin').send(signinData);
+
+    expect(statusCode).toBe(400);
+    expect(body.message).toBe('email does not match the required pattern');
+  });
+
+  test('test with missing email field', async () => {
+    const signinData = {
+      password: 'lizataran1234',
+    };
+
+    const { statusCode, body } = await request(app).post('/api/auth/signin').send(signinData);
+
+    expect(statusCode).toBe(400);
+    expect(body.message).toBe('missing required email field');
+  });
 });
