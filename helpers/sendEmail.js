@@ -1,14 +1,21 @@
-import sgMail from '@sendgrid/mail';
+import nodemailer from 'nodemailer';
 import 'dotenv/config';
 
-const { SENDGRID_API_KEY } = process.env;
+const { GOOGLE_EMAIL, GOOGLE_PASSWORD } = process.env;
 
-sgMail.setApiKey(SENDGRID_API_KEY);
-
-const sendEmail = data => {
-  const email = { ...data, from: 'learnlingoinc@gmail.com' };
-  sgMail.send(email);
-  return true;
+const nodemailerConfig = {
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  auth: {
+    user: GOOGLE_EMAIL,
+    pass: GOOGLE_PASSWORD,
+  },
 };
 
-export default sendEmail;
+const transport = nodemailer.createTransport(nodemailerConfig);
+
+const sendEmail = data => {
+  const email = { ...data, from: GOOGLE_EMAIL };
+  return transport.sendMail(email);
+};
