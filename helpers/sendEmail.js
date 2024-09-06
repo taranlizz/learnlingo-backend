@@ -15,7 +15,10 @@ const nodemailerConfig = {
 
 const transport = nodemailer.createTransport(nodemailerConfig);
 
-const sendEmail = data => {
+const sendEmail = async data => {
   const email = { ...data, from: GOOGLE_EMAIL };
-  return transport.sendMail(email);
+  const respond = await transport.sendMail(email);
+  return respond;
 };
+
+export default sendEmail;

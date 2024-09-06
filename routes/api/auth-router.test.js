@@ -16,8 +16,8 @@ describe('test /api/auth/signup route', () => {
   let server = null;
 
   const authTestData = new AuthTestData({
-    email: 'lizataran@mail.com',
-    password: 'lizataran1234',
+    email: 'poxas36732@esterace.com',
+    password: 'poxas1234',
     type: 'teacher',
   });
 
