@@ -18,12 +18,19 @@ const signIn = Joi.object({
   password: Joi.string().min(8).required().messages(ErrorMessage('password', 8)),
 });
 
-const verifyEmail = Joi.object({
+const email = Joi.object({
   email: Joi.string().pattern(emailRegex).required().messages(ErrorMessage('email')),
+});
+
+const changePassword = Joi.object({
+  securityCode: Joi.string().min(12).required().messages(ErrorMessage('securityCode', 12)),
+  newPassword: Joi.string().min(8).required().messages(ErrorMessage('newPassword', 8)),
+  confirmPassword: Joi.string().min(8).required().messages(ErrorMessage('confirmPassword', 8)),
 });
 
 export default {
   signUp,
   signIn,
-  verifyEmail,
+  email,
+  changePassword,
 };

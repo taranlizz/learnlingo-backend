@@ -16,11 +16,25 @@ authRouter.get('/verify/:verificationCode', authController.verify);
 authRouter.post(
   '/verify',
   isEmptyBody,
-  validateBody(userSchemas.verifyEmail),
+  validateBody(userSchemas.email),
   authController.resendVerification
 );
 
 authRouter.post('/signin', isEmptyBody, validateBody(userSchemas.signIn), authController.signIn);
+
+authRouter.post(
+  '/password',
+  isEmptyBody,
+  validateBody(userSchemas.email),
+  authController.changePasswordEmail
+);
+
+authRouter.patch(
+  '/password/:userId',
+  isEmptyBody,
+  validateBody(userSchemas.changePassword),
+  authController.changePassword
+);
 
 authRouter.get('/current', authenticate, authController.getCurrent);
 

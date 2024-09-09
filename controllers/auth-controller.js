@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { nanoid } from 'nanoid';
+import { nanoid, customAlphabet } from 'nanoid';
 
 import User from '../models/User.js';
 
@@ -72,7 +72,7 @@ const verify = async (req, res) => {
   const user = await User.findOne({ verificationCode });
 
   if (!user) {
-    throw HttpError(404, 'User not found or have already verified their email');
+    throw HttpError(400, 'User not found or have already verified their email');
   }
 
   await User.findByIdAndUpdate(user._id, {
@@ -105,6 +105,61 @@ const resendVerification = async (req, res) => {
   res.json({ message: 'Email has been sent successfully' });
 };
 
+const changePasswordEmail = async (req, res) => {
+  const { email } = req.body;
+
+  const user = await User.findOne({ email });
+
+  const nanoid = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', 12);
+  const securityCode = nanoid();
+
+  if (!user) {
+    throw HttpError(404, 'User not found');
+  }
+  if (!user.verified) {
+    throw HttpError(403, 'Email is not verified');
+  }
+
+  const changePasswordEmail = {
+    to: email,
+    subject: 'Password change',
+    html: `<a target="_blank" href="${BASE_URL}/api/auth/password/${user._id}">Click to change your password</a><h1>Security code: ${securityCode}</h1>`,
+  };
+
+  await sendEmail(changePasswordEmail);
+
+  await User.findOneAndUpdate(user._id, { securityCode });
+
+  res.json({ message: 'Email has been sent successfully' });
+};
+
+const changePassword = async (req, res) => {
+  const { securityCode, newPassword, confirmPassword } = req.body;
+  const { userId } = req.params;
+
+  const user = await User.findById(userId);
+
+  const doesSecurityCodeMatch = securityCode === user.securityCode ? true : false;
+
+  if (!doesSecurityCodeMatch) {
+    throw HttpError(400, 'Invalid security code');
+  }
+
+  const doesNewMatchConfirm = newPassword === confirmPassword ? true : false;
+
+  if (!doesNewMatchConfirm) {
+    throw HttpError(400, 'The new password and confirmation password do not match.');
+  }
+
+  const hashedPassword = await bcrypt.hash(confirmPassword, 10);
+
+  await User.findByIdAndUpdate(user._id, { password: hashedPassword, securityCode: '' });
+
+  res.json({
+    message: 'Password has been updated successfully',
+  });
+};
+
 const getCurrent = async (req, res) => {
   const { username, email } = req.user;
 
@@ -123,6 +178,8 @@ export default {
   signIn: ctrlWrapper(signIn),
   verify: ctrlWrapper(verify),
   resendVerification: ctrlWrapper(resendVerification),
+  changePasswordEmail: ctrlWrapper(changePasswordEmail),
+  changePassword: ctrlWrapper(changePassword),
   getCurrent: ctrlWrapper(getCurrent),
   signOut: ctrlWrapper(signOut),
 };
