@@ -30,7 +30,7 @@ authRouter.post(
 );
 
 authRouter.patch(
-  '/password/:userId',
+  '/password/:securityCode',
   isEmptyBody,
   validateBody(userSchemas.changePassword),
   authController.changePassword

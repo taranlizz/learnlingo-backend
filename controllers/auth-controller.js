@@ -110,9 +110,9 @@ const resendVerification = async (req, res) => {
 const changePasswordEmail = async (req, res) => {
   const { email } = req.body;
 
-  const user = await User.findOne({ email });
-
   const securityCode = nanoid();
+
+  const user = await User.findOneAndUpdate({ email }, { securityCode });
 
   if (!user) {
     throw HttpError(404, 'User not found');
@@ -124,25 +124,21 @@ const changePasswordEmail = async (req, res) => {
   const changePasswordEmail = {
     to: email,
     subject: 'Password change',
-    html: `<a target="_blank" href="${BASE_URL}/api/auth/password/${user._id}">Click to change your password</a><h1>Security code: ${securityCode}</h1>`,
+    html: `<a target="_blank" href="${BASE_URL}/api/auth/password/${user.securityCode}">Click to change your password</a>`,
   };
 
   await sendEmail(changePasswordEmail);
-
-  await User.findOneAndUpdate(user._id, { securityCode });
 
   res.json({ message: 'Email has been sent successfully' });
 };
 
 const changePassword = async (req, res) => {
-  const { securityCode, newPassword, confirmPassword } = req.body;
-  const { userId } = req.params;
+  const { newPassword, confirmPassword } = req.body;
+  const { securityCode } = req.params;
 
-  const user = await User.findById(userId);
+  const user = await User.findOne({ securityCode });
 
-  const doesSecurityCodeMatch = securityCode === user.securityCode ? true : false;
-
-  if (!doesSecurityCodeMatch) {
+  if (!user) {
     throw HttpError(400, 'Invalid security code');
   }
 

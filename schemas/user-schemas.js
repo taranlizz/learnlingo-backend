@@ -23,7 +23,6 @@ const email = Joi.object({
 });
 
 const changePassword = Joi.object({
-  securityCode: Joi.string().min(12).required().messages(ErrorMessage('securityCode', 12)),
   newPassword: Joi.string().min(8).required().messages(ErrorMessage('newPassword', 8)),
   confirmPassword: Joi.string().min(8).required().messages(ErrorMessage('confirmPassword', 8)),
 });
