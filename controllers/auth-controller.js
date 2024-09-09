@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { nanoid, customAlphabet } from 'nanoid';
+import { customAlphabet } from 'nanoid';
 
 import User from '../models/User.js';
 
@@ -8,6 +8,8 @@ import { ctrlWrapper } from '../decorators/index.js';
 import { HttpError, signJWT, sendEmail } from '../helpers/index.js';
 
 const { BASE_URL } = process.env;
+
+const nanoid = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', 12);
 
 const signUp = async (req, res) => {
   const { email, password } = req.body;
@@ -110,7 +112,6 @@ const changePasswordEmail = async (req, res) => {
 
   const user = await User.findOne({ email });
 
-  const nanoid = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', 12);
   const securityCode = nanoid();
 
   if (!user) {
